@@ -1,6 +1,6 @@
 name: 'Hello, World!'
 description: 'Greet someone'
-intputs:
+inputs:
   who-to-greet: # id of input
     description: 'Who to greet'
     required: true
