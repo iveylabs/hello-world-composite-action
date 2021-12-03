@@ -1,0 +1,28 @@
+name: 'Hello, World!'
+description: 'Greet someone'
+intputs:
+  who-to-greet: # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+
+outputs:
+  random-number:
+    description: 'Random number'
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+
+runs:
+  using: 'composite' # Required for composite actions
+  steps:
+    # Hello greeting
+    - run: echo Hello, ${{ inputs.who-to-greet }}!
+      shell: bash
+
+    # Randomly generator a number and set the output "random-id" to the value
+    - id: random-number-generator
+      run: echo '::set-output name=random-id::$(echo $RANDOM)'
+      shell: bash
+
+    # Run the goodbye bash script that echos "Goodbye"
+    - run: ${{ github.action_path }}/goodbye.sh
+      shell: bash
